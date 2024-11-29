@@ -80,3 +80,22 @@ async function getGeminiSummary(content) {
   const data = await response.json();
   return data.summary;  // The summary should be in the 'summary' field of the response
 }
+// Button click event to get summary
+document.getElementById('summarizeButton').addEventListener('click', async () => {
+  // Assume that you fetch content from the current tab (web page)
+  const content = 'The content you want to summarize';  // You’ll fetch this content dynamically from the page
+
+  try {
+      // Call the Gemini API to get the summary
+      const summary = await getGeminiSummary(content);
+
+      // Display the summary in the popup
+      document.getElementById('summary').innerText = summary;
+      
+      // Save the summary to localStorage for offline use
+      localStorage.setItem('summary', summary);
+  } catch (error) {
+      console.error("Error fetching summary:", error);
+      document.getElementById('summary').innerText = 'Failed to fetch summary.';
+  }
+});
