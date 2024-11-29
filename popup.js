@@ -1,32 +1,57 @@
 // DOM Elements
-const simplifyBtn = document.getElementById("simplifyBtn");
-const viewSavedBtn = document.getElementById("viewSavedBtn");
+const summarizeButton = document.getElementById('summarizeButton');
 const status = document.getElementById("status");
-const contentDiv = document.getElementById("content");
-const summarizeButton = document.getElementById('summarizeButton'); // Correct button ID from HTML
-const summaryDiv = document.getElementById('summary'); // Correct summary display element
+const summaryDiv = document.getElementById('summary'); // The element where the summary will be displayed
 
-// Hugging Face API integration for summarization
-const API_URL = 'https://api-inference.huggingface.co/models/facebook/bart-large-cnn'; // Hugging Face API URL
-const API_KEY = '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'; // Replace with your actual Hugging Face API key
+// Hugging Face API integration
+async function getGeminiSummary(content) {
+  const apiKey = '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'; // Replace with your actual API key
+  const apiUrl = 'https://api-inference.huggingface.co/models/facebook/bart-large-cnn'; // Use the correct API URL for summarization
 
-// Function to get summary from Hugging Face
-async function getSummaryFromHuggingFace(content) {
-  const response = await fetch(API_URL, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ inputs: content }), // Send content to be summarized
-  });
+  // Requesting the summary from Hugging Face API
+  try {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ inputs: content }),
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch summary from Hugging Face.");
+    if (!response.ok) {
+      throw new Error(`API error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    if (!data || !data[0]?.summary_text) {
+      throw new Error("Summary not available");
+    }
+
+    return data[0].summary_text; // Return the summary from the API response
+  } catch (error) {
+    console.error("Error fetching summary:", error);
+    status.textContent = "An error occurred while fetching the summary.";
+    summaryDiv.textContent = 'Failed to fetch summary.';
+  }
+}
+
+// Enhanced content extraction for Wikipedia and other pages
+function getContentFromPage() {
+  let content = '';
+
+  if (window.location.hostname.includes('wikipedia.org')) {
+    // Specific extraction logic for Wikipedia
+    const articleBody = document.querySelector('div.mw-parser-output');
+    if (articleBody) {
+      content = articleBody.innerText.trim();
+    }
+  } else {
+    // Fallback: Extracts text from the whole page
+    content = document.body.innerText.trim();
   }
 
-  const data = await response.json();
-  return data[0].summary_text; // Assuming the response contains 'summary_text' as the field
+  return content;
 }
 
 // Summarize Button (trigger Hugging Face API)
@@ -40,13 +65,17 @@ summarizeButton.addEventListener('click', async () => {
     // Fetch visible content from the page
     const response = await chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: () => document.body.innerText, // Extract all visible text from the page
+      func: getContentFromPage, // Use the refined content extraction function
     });
 
-    const pageContent = response[0].result; // Content of the active page
+    const pageContent = response[0].result;
+
+    // Limit the content length if it’s too large (max 5000 characters)
+    const maxLength = 5000; // Limit content length to avoid overloading the API
+    const truncatedContent = pageContent.length > maxLength ? pageContent.slice(0, maxLength) : pageContent;
 
     // Call Hugging Face API to summarize content
-    const summary = await getSummaryFromHuggingFace(pageContent);
+    const summary = await getGeminiSummary(truncatedContent);
 
     // Display the summary in the popup
     summaryDiv.textContent = summary || "Summary not available.";
