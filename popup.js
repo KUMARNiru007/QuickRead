@@ -61,3 +61,22 @@ viewSavedBtn.addEventListener("click", () => {
     }
   });
 });
+// Function to call Gemini API and get the summary
+async function getGeminiSummary(content) {
+  const apiKey = 'your_gemini_api_key_here';  // Replace this with your actual API key
+  const apiUrl = 'https://api.gemini.google.com/v1/summarize';  // Placeholder URL, replace it with the real one
+
+  // Requesting the summary from Gemini API
+  const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: content }),  // Send content to be summarized
+  });
+
+  // Parse the response to get the summary
+  const data = await response.json();
+  return data.summary;  // The summary should be in the 'summary' field of the response
+}
