@@ -63,7 +63,7 @@ viewSavedBtn.addEventListener("click", () => {
 });
 // Function to call Gemini API and get the summary
 async function getGeminiSummary(content) {
-  const apiKey = 'your_gemini_api_key_here';  // Replace this with your actual API key
+  const apiKey = 'AIzaSyDTnR3gtoUBDtaB6oR-afjGt41ccWf63uw';  // Replace this with your actual API key
   const apiUrl = 'https://api.gemini.google.com/v1/summarize';  // Placeholder URL, replace it with the real one
 
   // Requesting the summary from Gemini API
