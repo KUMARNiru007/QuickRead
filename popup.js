@@ -99,3 +99,12 @@ document.getElementById('summarizeButton').addEventListener('click', async () =>
       document.getElementById('summary').innerText = 'Failed to fetch summary.';
   }
 });
+// Get content from the current page using chrome extension messaging
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  chrome.tabs.sendMessage(tabs[0].id, { action: 'getContent' }, function(response) {
+      const content = response.content;
+      // Now use this content in the getGeminiSummary function
+      const summary = await getGeminiSummary(content);
+      document.getElementById('summary').innerText = summary;
+  });
+});
