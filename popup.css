@@ -2,15 +2,15 @@
 body {
     font-family: Arial, sans-serif;
     padding: 10px;
-  }
-  
-  h1 {
+}
+
+h1 {
     font-size: 1.5rem;
     text-align: center;
-  }
-  
-  /* Style for the buttons */
-  button {
+}
+
+/* Style for the buttons */
+button {
     margin: 5px 0;
     padding: 10px;
     width: 100%;
@@ -18,34 +18,45 @@ body {
     color: white;
     border: none;
     cursor: pointer;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #0056b3;
-  }
-  
-  /* Style for the status message */
-  #status {
+}
+
+/* Style for the Clear History button (smaller button) */
+#clearHistoryBtn {
+    width: auto; /* Allow the width to adjust to the content */
+    padding: 5px 10px; /* Smaller padding for a smaller button */
+    font-size: 0.875rem; /* Slightly smaller font */
+    background-color: #f44336; /* Red background for the "Clear" button */
+}
+
+#clearHistoryBtn:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Style for the status message */
+#status {
     margin: 10px 0;
     color: green;
     font-weight: bold;
-  }
-  
-  /* Style for the summary content */
-  #summary {
+}
+
+/* Style for the summary content */
+#summary {
     border: 1px solid #ccc;
     padding: 10px;
     min-height: 50px;
     max-height: 200px;
     overflow-y: auto;
-  }
-  
-  strong {
+}
+
+strong {
     color: #333;
-  }
-  
-  em {
+}
+
+em {
     font-size: 0.9rem;
     color: #666;
-  }
-  
+}

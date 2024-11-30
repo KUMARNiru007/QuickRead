@@ -3,6 +3,7 @@ const summarizeButton = document.getElementById('summarizeButton');
 const viewSavedBtn = document.getElementById('viewSavedBtn');
 const status = document.getElementById("status");
 const summaryDiv = document.getElementById('summary'); // The element where the summary will be displayed
+const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
 // Hugging Face API integration
 async function getGeminiSummary(content) {
@@ -110,5 +111,16 @@ viewSavedBtn.addEventListener('click', () => {
     });
   } else {
     summaryDiv.textContent = "No saved summaries available.";
+  }
+});
+// Event listener to clear the history of saved content
+clearHistoryBtn.addEventListener('click', () => {
+  if (window.confirm("Are you sure you want to clear all saved summaries?")) {
+    // Clear all saved summaries from localStorage
+    localStorage.removeItem('summaries');
+    
+    // Update the UI to reflect the change
+    summaryDiv.innerHTML = 'Saved summaries have been cleared.';
+    status.textContent = 'History cleared!';
   }
 });
