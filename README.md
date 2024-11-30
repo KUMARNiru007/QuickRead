@@ -12,7 +12,7 @@ This project is being developed for the **Google Chrome Built-in AI Challenge**.
 - **Save Summaries**: Saved summaries are stored locally and can be accessed later.
 - **Offline Mode**: View previously saved summaries even when not connected to the internet.
 - **Clear History**: Clear all saved summaries with the "Clear History" button.
-- **AI-Powered**: Utilizes Hugging Face’s Gemini AI model for generating summaries.
+- **AI-Powered**: Utilizes Hugging Face’s AI model for generating summaries.
 
 ---
 
