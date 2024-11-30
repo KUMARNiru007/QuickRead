@@ -4,31 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickRead</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 10px;
-    }
-    button {
-      margin: 5px 0;
-      padding: 10px;
-      width: 100%;
-    }
-    #status {
-      margin: 10px 0;
-      color: green;
-    }
-    #summary {
-      border: 1px solid #ccc;
-      padding: 10px;
-      min-height: 50px;
-      max-height: 200px;
-      overflow-y : auto;
-    }
-  </style>
+  <!-- Link to the external CSS file -->
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <h1>QuickRead</h1>
+
   <!-- Buttons to Summarize or View Saved Content -->
   <button id="summarizeButton">Summarize Content</button>
   <button id="viewSavedBtn">View Saved Content</button>
@@ -39,6 +20,7 @@
   <!-- Displaying the summary here -->
   <div id="summary"></div>
 
+  <!-- Link to the external JavaScript file -->
   <script src="popup.js"></script>
 </body>
 </html>

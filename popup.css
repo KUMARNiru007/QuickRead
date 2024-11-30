@@ -1,0 +1,51 @@
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  /* Style for the buttons */
+  button {
+    margin: 5px 0;
+    padding: 10px;
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style for the status message */
+  #status {
+    margin: 10px 0;
+    color: green;
+    font-weight: bold;
+  }
+  
+  /* Style for the summary content */
+  #summary {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 50px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  strong {
+    color: #333;
+  }
+  
+  em {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  

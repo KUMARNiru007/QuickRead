@@ -6,9 +6,8 @@ const summaryDiv = document.getElementById('summary'); // The element where the 
 
 // Hugging Face API integration
 async function getGeminiSummary(content) {
-  const apiKey = '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'; // Replace with your actual API key
-  const apiUrl = 'https://api-inference.huggingface.co/models/facebook/bart-large-cnn'; // Use the correct API URL for summarization
-
+  const apiKey = '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'; 
+  const apiUrl = 'https://api-inference.huggingface.co/models/facebook/bart-large-cnn'; // 
   // Requesting the summary from Hugging Face API
   try {
     const response = await fetch(apiUrl, {
