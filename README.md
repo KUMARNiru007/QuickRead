@@ -22,20 +22,19 @@ This project is being developed for the **Google Chrome Built-in AI Challenge**.
 
 ```bash
 git clone https://github.com/yourusername/QuickRead.git
+```
 
-
-###2. Open Chrome Extensions Page
+### 2. Open Chrome Extensions Page
 
 Open Google Chrome and navigate to chrome://extensions/.
 Enable Developer Mode by toggling the switch in the top-right corner.
-###3. Load Extension
+### 3. Load Extension
 
 Click on the Load unpacked button.
 Select the QuickRead folder from the cloned repository.
 Your extension is now installed and ready to use!
 
 ## Usage
-
 Once installed, the extension will add a button to your Chrome toolbar. Here's how to use it:
 
 ### **Summarize Web Content**
