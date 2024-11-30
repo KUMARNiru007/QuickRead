@@ -1,5 +1,6 @@
 // DOM Elements
 const summarizeButton = document.getElementById('summarizeButton');
+const viewSavedBtn = document.getElementById('viewSavedBtn');
 const status = document.getElementById("status");
 const summaryDiv = document.getElementById('summary'); // The element where the summary will be displayed
 
@@ -33,6 +34,7 @@ async function getGeminiSummary(content) {
     console.error("Error fetching summary:", error);
     status.textContent = "An error occurred while fetching the summary.";
     summaryDiv.textContent = 'Failed to fetch summary.';
+    throw error; // Re-throw error to handle it in the caller function
   }
 }
 
@@ -80,8 +82,11 @@ summarizeButton.addEventListener('click', async () => {
     // Display the summary in the popup
     summaryDiv.textContent = summary || "Summary not available.";
 
-    // Save summary to localStorage for offline use
-    localStorage.setItem('summary', summary);
+    // Save summary with a timestamp in localStorage
+    const savedSummaries = JSON.parse(localStorage.getItem('summaries')) || [];
+    const timestamp = new Date().toLocaleString();
+    savedSummaries.push({ summary, timestamp });
+    localStorage.setItem('summaries', JSON.stringify(savedSummaries));
 
     // Update status
     status.textContent = "Content summarized and saved!";
@@ -94,10 +99,17 @@ summarizeButton.addEventListener('click', async () => {
 
 // View Saved Content (retrieve from localStorage)
 viewSavedBtn.addEventListener('click', () => {
-  const savedSummary = localStorage.getItem('summary');
-  if (savedSummary) {
-    contentDiv.textContent = savedSummary;
+  const savedSummaries = JSON.parse(localStorage.getItem('summaries')) || [];
+  summaryDiv.innerHTML = ''; // Clear previous content
+
+  if (savedSummaries.length > 0) {
+    savedSummaries.forEach((entry, index) => {
+      const entryDiv = document.createElement('div');
+      entryDiv.style.marginBottom = '10px';
+      entryDiv.innerHTML = `<strong>Summary ${index + 1}:</strong> <em>${entry.timestamp}</em><br>${entry.summary}`;
+      summaryDiv.appendChild(entryDiv);
+    });
   } else {
-    contentDiv.textContent = "No saved content available.";
+    summaryDiv.textContent = "No saved summaries available.";
   }
 });
